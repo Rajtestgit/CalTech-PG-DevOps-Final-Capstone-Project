@@ -20,6 +20,7 @@ pipeline {
                 sh 'docker tag ${JOB_NAME}:v1.${BUILD_NUMBER} rajendocker/${JOB_NAME}:v1.${BUILD_NUMBER} '
                 sh 'docker tag ${JOB_NAME}:v1.${BUILD_NUMBER} rajendocker/${JOB_NAME}:latest '
         }
+        }
         stage('push conatiner') {
             steps{
                 withCredentials([string(credentialsId: 'dockerhub', variable: 'docker-creds')]) {
