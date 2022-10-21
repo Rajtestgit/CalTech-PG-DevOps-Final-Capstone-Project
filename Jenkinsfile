@@ -22,8 +22,8 @@ pipeline {
         }
         stage('push conatiner') {
             steps{
-                withCredentials([string(credentialsId: 'docker-creds', variable: 'dockerHubPwd')]) {
-                  sh "docker login -u rajendocker -p ${dockerHubPwd}"
+                withCredentials([string(credentialsId: 'docker-pwd', variable: 'dockerHubPwd')]) {
+                  sh 'docker login -u rajendocker -p ${dockerHubPwd}'
                   sh 'docker push rajendocker/${JOB_NAME}/v1.${BUILD_NUMBER}'
                 }      
             }
