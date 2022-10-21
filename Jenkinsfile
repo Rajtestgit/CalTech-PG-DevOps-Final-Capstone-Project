@@ -24,7 +24,7 @@ pipeline {
             steps{
                 withCredentials([string(credentialsId: 'docker-pwd', variable: 'dockerHubPwd')]) {
                   sh "docker login -u rajendocker -p ${dockerHubPwd}"
-                  sh 'docker push rajendocker/${JOB_NAME}/v1.${BUILD_NUMBER}'
+                  sh 'docker push rajendocker/${JOB_NAME}:v1.${BUILD_NUMBER}'
                 }      
             }
         }
