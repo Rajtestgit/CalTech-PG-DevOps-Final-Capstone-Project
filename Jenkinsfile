@@ -28,10 +28,14 @@ pipeline {
                 }      
             }
         }
-        stage('Docker Deploy') {
+        stage("Docker Deploy Dev"){
             steps{
-                ansiblePlaybook credentialsId: 'ansible-host', disableHostKeyChecking: true, installation: 'ansible', inventory: 'inventory.txt', playbook: 'deploy.yml'
-            }
+                sshagent(['dev-server']) {
+                    sh "ssh -o StrictHostKeyChecking=no ec2-user@172.31.0.227 docker rm -f docker-app"
+                    sh "ssh ec2-user@172.31.0.227 docker run -d -p 8080:8080 --name docker-app rajendocker/${JOB_NAME}:v1.${BUILD_NUMBER}"
+        
+          }
         }          
     }
+}
 }
