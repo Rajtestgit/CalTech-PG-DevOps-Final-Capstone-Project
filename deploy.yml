@@ -13,4 +13,4 @@
        shell: docker rmi -f rajendocker/docker-app
        
      - name: create a new tomcat container using the defined Dockerfile
-       shell: docker run -d --name tomcat-container -p 8080:8080 rajentestgit/caltech-pg-devops-final-capstone-project
+       shell: docker run -d --name tomcat-container -p 8080:8080 rajendocker/caltech-pg-devops-final-capstone-project
