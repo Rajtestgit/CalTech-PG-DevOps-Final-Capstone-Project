@@ -6,7 +6,7 @@ pipeline {
     stages{
         stage('GIT checkout') {
             steps {
-                git credentialsId: 'github_cred', url: 'https://github.com/tmatin100/CalTech-PG-DevOps-Final-Capstone-Project.git'
+                git credentialsId: 'git_creds', url: 'https://github.com/Rajtestgit/CalTech-PG-DevOps-Final-Capstone-Project.git'
            }
        }
           stage('Build Package') {
@@ -23,11 +23,11 @@ pipeline {
         }
         stage('push conatiner') {
             steps{
-                withCredentials([string(credentialsId: 'dockerhub', variable: 'dockerhubcred')]) {
-                  sh 'docker login -u tmatin100 -p ${dockerhubcred}'
-                  sh 'docker push tmatin100/${JOB_NAME}:v1.${BUILD_NUMBER}'
-                  sh 'docker push tmatin100/${JOB_NAME}:latest'
-                  sh 'docker rmi ${JOB_NAME}:v1.${BUILD_NUMBER} tmatin100/${JOB_NAME}:v1.${BUILD_NUMBER} tmatin100/${JOB_NAME}:latest'
+                withCredentials([string(credentialsId: 'dockerhub', variable: 'docker-creds')]) {
+                  sh 'docker login -u rajendocker -p ${docker-creds}'
+                  sh 'docker push rajendocker/${JOB_NAME}:v1.${BUILD_NUMBER}'
+                  sh 'docker push rajendocker/${JOB_NAME}:latest'
+                  sh 'docker rmi ${JOB_NAME}:v1.${BUILD_NUMBER} rajendocker/${JOB_NAME}:v1.${BUILD_NUMBER} rajendocker/${JOB_NAME}:latest'
                 }      
             }
         }
