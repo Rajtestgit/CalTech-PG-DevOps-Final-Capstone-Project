@@ -17,8 +17,8 @@ pipeline {
         stage('Docker build and Tag') {
             steps{
                 sh 'docker build -t ${JOB_NAME}:v1.${BUILD_NUMBER} .'
-                sh 'docker tag ${JOB_NAME}:v1.${BUILD_NUMBER} tmatin100/${JOB_NAME}:v1.${BUILD_NUMBER} '
-                sh 'docker tag ${JOB_NAME}:v1.${BUILD_NUMBER} tmatin100/${JOB_NAME}:latest '
+                sh 'docker tag ${JOB_NAME}:v1.${BUILD_NUMBER} rajendocker/${JOB_NAME}:v1.${BUILD_NUMBER} '
+                sh 'docker tag ${JOB_NAME}:v1.${BUILD_NUMBER} rajendocker/${JOB_NAME}:latest '
             }
         }
         stage('push conatiner') {
