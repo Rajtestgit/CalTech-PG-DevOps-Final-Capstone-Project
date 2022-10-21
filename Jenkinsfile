@@ -23,7 +23,7 @@ pipeline {
         }
         stage('push conatiner') {
             steps{
-                withCredentials([string(credentialsId: 'git-creds', variable: 'docker-creds')]) {
+                withCredentials([string(credentialsId: 'docker-creds', variable: 'docker-creds')]) {
                   sh 'docker login -u rajendocker -p ${docker-creds}'
                   sh 'docker push rajendocker/${JOB_NAME}/v1.${BUILD_NUMBER}'
                   sh 'docker push rajendocker/${JOB_NAME}:latest'
