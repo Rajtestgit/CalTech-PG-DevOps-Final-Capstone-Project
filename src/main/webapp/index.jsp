@@ -4,9 +4,9 @@
 </head>
 <body>
 	
-	<h1>Hello CalTech!</h1>
+	<h1> Hello Simplilearn CalTech!</h1>
 	
-	<h1> Welcome to an AWS, Jenkins, Ansible, Docker, deployment project by Tamzidul Matin! </h1>
+	<h1> Welcome to an AWS, Jenkins, Ansible, Docker, deployment project by Rajendra Dhakal! </h1>
 	
 	<p>
 		It is now
