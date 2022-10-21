@@ -31,7 +31,7 @@ pipeline {
         stage("Docker Deploy Dev"){
             steps{
                  sshagent (credentials: ['dev-server']){
-                     def dockerRun = "docker run -d -p 8080:8080 --name=docker-app rajendocker/${JOB_NAME}:v1.${BUILD_NUMBER}"
+                     def dockerRun = "docker run -p 8080:8080 -d --name docker-app rajendocker/${JOB_NAME}:v1.${BUILD_NUMBER}"
                      sh 'ssh -o StrictHostKeyChecking=no ec2-user@172.31.0.227 ${dockerRun}'
                     }
         }          
