@@ -9,7 +9,7 @@
      - name: remove tomcat container
        shell: docker rm -f tomcat-container
        
-     - name: Remove tomcat image
+     - name: remove tomcat image
        shell: docker rmi -f rajendocker/docker-app
        
      - name: create a new tomcat container using the defined Dockerfile
