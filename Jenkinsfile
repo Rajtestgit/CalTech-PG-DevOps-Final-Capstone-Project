@@ -38,6 +38,7 @@ pipeline {
             }
            
         }
+		}
         stage("Docker Deploy Dev"){
             steps{
                  sshagent (credentials: ['dev-server']){
@@ -48,3 +49,4 @@ pipeline {
     }
 }
 }
+		
