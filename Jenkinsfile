@@ -25,8 +25,18 @@ pipeline {
                 withCredentials([string(credentialsId: 'docker-pwd', variable: 'dockerHubPwd')]) {
                   sh "docker login -u rajendocker -p ${dockerHubPwd}"
                   sh 'docker push rajendocker/${JOB_NAME}:v1.${BUILD_NUMBER}'
-                }      
+                } 
+                stage('Delete Old Container'){
+	                sshagent (credentials: ['dev-server']) {
+	             try{
+		         sh 'dockrRm = "docker rm -f docker-app'
+			     sh 'dockrRmImage = docker rmi  rajendocker/${JOB_NAME}:v1.${BUILD_NUMBER}'
+	             sh "ssh -o StrictHostKeyChecking=no ec2-user@172.31.0.227  ${dockrRm} "
+			     sh "ssh -o StrictHostKeyChecking=no ec2-user@172.31.0.227  ${dockrRmImage} "
+		         }catch(e){
+			  echo "container docker-app not found" 
             }
+           
         }
         stage("Docker Deploy Dev"){
             steps{
