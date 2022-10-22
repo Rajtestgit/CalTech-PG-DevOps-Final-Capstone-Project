@@ -28,7 +28,7 @@ pipeline {
                 } 
 	    }
 	}
-	   stage('Run Conatiner on Dev Server'){
+	   stage('Run Container on Dev Server'){
 		   def dockerRun = 'docker run -p 8080:8080 -d --name my-app rajendocker/${JOB_NAME}:v1.${BUILD_NUMBER} '
 		   sshagent (['dev-server']) { 
 			   sh 'ssh -o StrictHostKeyChecking=no  ec2-user@172.31.0.227 ${dockerRun}'
