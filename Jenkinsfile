@@ -28,22 +28,10 @@ pipeline {
                 } 
 	    }
 	}
-                stage('Delete Old Container'){
-			sshagent(credentials: ['dev-server']) {
-	                 sh 'dockrRm = "docker rm -f docker-app'
-			 sh 'dockrRmImage = docker rmi  rajendocker/${JOB_NAME}:v1.${BUILD_NUMBER}'
-	                 sh 'ssh -o StrictHostKeyChecking=no ec2-user@172.31.0.227  ${dockrRm}'
-			 sh "ssh -o StrictHostKeyChecking=no ec2-user@172.31.0.227  ${dockrRmImage}"
-		     echo "container docker-app not found" 
-            }
-           
-        }
-        stage("Docker Deploy Dev"){
+	    stage('Docker Deploy') {
             steps{
-                 sshagent (credentials: ['dev-server']){
-                     sh 'docker run -d -p 8080:8080 --name=docker-app rajendocker/${JOB_NAME}:v1.${BUILD_NUMBER}'
-                     sh "ssh -o StrictHostKeyChecking=no ec2-user@172.31.0.227 ${docker-app}"
-                  }
+                ansiblePlaybook credentialsId: 'ansible-host', disableHostKeyChecking: true, installation: 'ansible', inventory: 'inventory.txt', playbook: 'deploy.yml'
+
 	    }
 	}
     }
