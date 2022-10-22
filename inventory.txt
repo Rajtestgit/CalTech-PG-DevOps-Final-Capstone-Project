@@ -1,2 +1,2 @@
-[ans-host]
+[ansible-host]
 172.31.0.227
