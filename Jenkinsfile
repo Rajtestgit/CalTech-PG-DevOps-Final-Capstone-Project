@@ -29,7 +29,7 @@ pipeline {
 	    }
 	}
                 stage('Delete Old Container'){
-			sshagent(credentials: ['my-credential-id']) {
+			sshagent(credentials: ['dev-server']) {
 	                 sh 'dockrRm = "docker rm -f docker-app'
 			 sh 'dockrRmImage = docker rmi  rajendocker/${JOB_NAME}:v1.${BUILD_NUMBER}'
 	                 sh 'ssh -o StrictHostKeyChecking=no ec2-user@172.31.0.227  ${dockrRm}'
@@ -40,8 +40,8 @@ pipeline {
         }
         stage("Docker Deploy Dev"){
             steps{
-                 sshagent (credentials: ['my-credential-id']){
-                     sh 'docker run -p 8080:8080 -d --name docker-app rajendocker/${JOB_NAME}:v1.${BUILD_NUMBER}'
+                 sshagent (credentials: ['dev-server']){
+                     sh 'docker run -d -p 8080:8080 --name=docker-app rajendocker/${JOB_NAME}:v1.${BUILD_NUMBER}'
                      sh "ssh -o StrictHostKeyChecking=no ec2-user@172.31.0.227 ${docker-app}"
                   }
 	    }
