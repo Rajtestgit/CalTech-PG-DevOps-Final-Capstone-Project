@@ -33,5 +33,6 @@ pipeline {
 		   sshagent (['dev-server']) { 
 			   sh 'ssh -o StrictHostKeyChecking=no  ec2-user@172.31.0.227 ${dockerRun}'
 		  	   }
+	   }
 }
 }
