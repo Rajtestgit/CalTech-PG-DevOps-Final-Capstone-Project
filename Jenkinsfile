@@ -21,7 +21,7 @@ pipeline {
                         }
         }
         stage('push conatiner') {
-            steps{
+            steps {
                 withCredentials([string(credentialsId: 'docker-pwd', variable: 'dockerHubPwd')]) {
                   sh "docker login -u rajendocker -p ${dockerHubPwd}"
                   sh 'docker push rajendocker/${JOB_NAME}:v1.${BUILD_NUMBER}'
@@ -32,18 +32,20 @@ pipeline {
 		         sh 'dockrRm = "docker rm -f docker-app'
 			     sh 'dockrRmImage = docker rmi  rajendocker/${JOB_NAME}:v1.${BUILD_NUMBER}'
 	             sh 'ssh -o StrictHostKeyChecking=no ec2-user@172.31.0.227  ${dockrRm}'
-			     sh 'ssh -o StrictHostKeyChecking=no ec2-user@172.31.0.227  ${dockrRmImage}'
-		         }catch(e){
+			     sh "ssh -o StrictHostKeyChecking=no ec2-user@172.31.0.227  ${dockrRmImage}"
+		     }catch(e){
 			  echo "container docker-app not found" 
             }
            
         }
-		}
+}
         stage("Docker Deploy Dev"){
             steps{
                  sshagent (credentials: ['dev-server']){
                      sh 'docker run -p 8080:8080 -d --name docker-app rajendocker/${JOB_NAME}:v1.${BUILD_NUMBER}'
-                     sh 'ssh -o StrictHostKeyChecking=no ec2-user@172.31.0.227 ${docker-app}'
+                     sh "ssh -o StrictHostKeyChecking=no ec2-user@172.31.0.227 ${docker-app}"
                   }
 	    }          
     }
+	    }
+		
