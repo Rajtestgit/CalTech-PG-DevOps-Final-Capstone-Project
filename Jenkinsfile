@@ -5,13 +5,15 @@ pipeline {
         registryCredential = 'docker-creds'
         dockerImage = ''
     }
+}
     agent any
     stages {
-        stage('GIT checkout') {
+        stage('SCM checkout') {
             steps {
                git branch: 'master', credentialsId: 'git-creds', url: 'github.com/Rajtestgit/CalTech-PG-DevOps-Final-Capstone-Project.git' 
             }
         }
+    }
 	    stage('Build Package') {
             steps {
                 sh 'mvn clean install'
