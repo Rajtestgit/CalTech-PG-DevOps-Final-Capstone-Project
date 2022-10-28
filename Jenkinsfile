@@ -41,7 +41,6 @@ pipeline {
         }
 
 
-
         stage('Test - Run Docker Container on Jenkins node') {
            steps {
 
@@ -76,6 +75,5 @@ pipeline {
                 }
             }
         }
-
 }
 }
