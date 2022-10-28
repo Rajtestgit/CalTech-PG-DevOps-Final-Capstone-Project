@@ -9,7 +9,7 @@ pipeline {
     stages {
         stage('GIT checkout') {
             steps {
-               git branch: 'main', credentialsId: 'git-creds', url: 'github.com/Rajtestgit/CalTech-PG-DevOps-Final-Capstone-Project.git' 
+               git branch: 'master', credentialsId: 'git-creds', url: 'github.com/Rajtestgit/CalTech-PG-DevOps-Final-Capstone-Project.git' 
             }
         }
 	    stage('Build Package') {
