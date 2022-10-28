@@ -5,22 +5,19 @@ pipeline {
         registryCredential = 'docker-creds'
         dockerImage = ''
     }
-}
     agent any
-    tools {
-        maven 'maven-3'
-        }
-    stages{
+    stages {
         stage('GIT checkout') {
             steps {
-                git credentialsId: 'git_creds', url: 'https://github.com/Rajtestgit/CalTech-PG-DevOps-Final-Capstone-Project.git'
-           }
-       }
-          stage('Build Package') {
+               git branch: 'main', credentialsId: 'git-creds', url: 'github.com/Rajtestgit/CalTech-PG-DevOps-Final-Capstone-Project.git' 
+            }
+        }
+	    stage('Build Package') {
             steps {
                 sh 'mvn clean install'
             }
         }
+
         stage ('Stop previous running container'){
             steps{
                 sh returnStatus: true, script: 'docker stop $(docker ps -a | grep ${JOB_NAME} | awk \'{print $1}\')'
@@ -41,6 +38,7 @@ pipeline {
         }
 
 
+
         stage('Test - Run Docker Container on Jenkins node') {
            steps {
 
@@ -56,7 +54,9 @@ pipeline {
                     }
                 }
             }
-	 stage('Deploy to Test Server') {
+        }
+
+        stage('Deploy to Test Server') {
             steps {
                 script {
                     def stopcontainer = "docker stop ${JOB_NAME}"
@@ -75,5 +75,6 @@ pipeline {
                 }
             }
         }
-}
+
+    }
 }
