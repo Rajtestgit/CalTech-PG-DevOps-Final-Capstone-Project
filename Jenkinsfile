@@ -13,11 +13,10 @@ pipeline {
             }
         }
     }
-	    stage('Build Package') {
-            steps {
-                sh 'mvn clean install'
-            }
-        }
+	   
+     def mvnHome = tool name: 'maven-3', type: 'maven'
+     def mvnCMD = "${mvnHome}/bin/mvn"
+     sh "${mvnCMD} clean package"
 
         stage ('Stop previous running container'){
             steps{
