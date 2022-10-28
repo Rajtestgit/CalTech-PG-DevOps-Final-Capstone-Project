@@ -5,7 +5,6 @@ pipeline {
         registryCredential = 'docker-creds'
         dockerImage = ''
     }
-}
     agent any
     stages {
         stage('SCM checkout') {
